@@ -31,7 +31,6 @@
             padding: 30px 15px;
         }
 
-        /* Tabs Styling */
         .tabs-container {
             display: flex;
             justify-content: center;
@@ -39,7 +38,7 @@
             gap: 15px;
             margin-bottom: 25px;
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
         }
 
         .tab-btn {
@@ -65,11 +64,10 @@
             box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
         }
 
-        /* Card Container */
         .tab-content {
             display: none;
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             animation: fadeIn 0.4s ease-in;
         }
 
@@ -124,12 +122,7 @@
             background-color: white;
             color: #374151;
             outline: none;
-            transition: border-color 0.3s;
             cursor: pointer;
-        }
-
-        select:focus {
-            border-color: var(--primary-blue);
         }
 
         button.draw-btn {
@@ -146,13 +139,11 @@
 
         button.draw-btn:hover:not(:disabled) {
             background-color: var(--light-blue);
-            transform: translateY(-2px);
         }
 
         button.draw-btn:disabled {
             background-color: #9ca3af;
             cursor: not-allowed;
-            transform: none;
         }
 
         .subtitle {
@@ -180,7 +171,6 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            animation: slideIn 0.4s ease-out forwards;
         }
 
         .result-box strong {
@@ -194,14 +184,7 @@
             padding: 6px 14px;
             border-radius: 4px;
             font-size: 15px;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.3);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
             border: 1px solid #4a0000;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeIn {
@@ -209,7 +192,7 @@
             to { opacity: 1; }
         }
 
-        /* Bracket Section */
+        /* --- Clean Bracket Layout --- */
         .final-draw-section {
             margin-top: 35px;
             padding: 25px 15px;
@@ -238,24 +221,32 @@
 
         .bracket-header h2 {
             color: #581c87;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 700;
         }
 
-        .bracket-wrapper {
+        .bracket-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-width: 750px;
-            padding: 10px 0;
+            min-width: 850px;
+            padding: 20px 10px;
+            position: relative;
         }
 
         .bracket-column {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            height: 520px;
-            width: 180px;
+            width: 190px;
+            gap: 15px;
+        }
+
+        .match-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
         }
 
         .bracket-box {
@@ -266,40 +257,65 @@
             padding: 8px 10px;
             text-align: center;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.3);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .connector-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .connector-line {
+            fill: none;
+            stroke: #1e3a8a;
+            stroke-width: 2.5;
+            stroke-linecap: round;
         }
 
         .bracket-box.bye {
             background: #1e3a8a;
             border-color: #0f172a;
+            font-size: 12px;
         }
 
         .bracket-box.winner-box {
             background: #ffffff;
             color: #000000;
-            border: 2.5px solid #000000;
+            border: 2px solid #000000;
             text-shadow: none;
+            font-size: 12px;
+            height: 38px;
         }
 
         .bracket-box.champion {
             background: #166534;
             border-color: #14532d;
-            font-size: 16px;
+            font-size: 15px;
+            height: 50px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Tab Navigation -->
     <div class="tabs-container">
         <button class="tab-btn active" id="btn-mgt" onclick="openTab('mgt')">Mgt. Match</button>
         <button class="tab-btn" id="btn-men" onclick="openTab('men')">Men's Match</button>
         <button class="tab-btn" id="btn-women" onclick="openTab('women')">Women's Match</button>
     </div>
 
-    <!-- MGT DRAW SECTION (7 Teams) -->
+    <!-- MGT DRAW SECTION -->
     <div id="mgt" class="tab-content main-card active">
         <h1>Mgt. Match Schedule</h1>
         <div class="input-group">
@@ -317,11 +333,11 @@
                 <div class="logo-text">Crystal Martin Ceylon (Private) Limited</div>
                 <h2>Mgt. Match Schedule</h2>
             </div>
-            <div class="bracket-wrapper" id="mgt-bracketTree"></div>
+            <div class="bracket-container" id="mgt-bracketTree"></div>
         </div>
     </div>
 
-    <!-- MEN'S DRAW SECTION (7 Teams) -->
+    <!-- MEN'S DRAW SECTION -->
     <div id="men" class="tab-content main-card">
         <h1>Men's Match Schedule</h1>
         <div class="input-group">
@@ -339,11 +355,11 @@
                 <div class="logo-text">Crystal Martin Ceylon (Private) Limited</div>
                 <h2>Factory Team -Men's Match Schedule</h2>
             </div>
-            <div class="bracket-wrapper" id="men-bracketTree"></div>
+            <div class="bracket-container" id="men-bracketTree"></div>
         </div>
     </div>
 
-    <!-- WOMEN'S DRAW SECTION (6 Teams) -->
+    <!-- WOMEN'S DRAW SECTION -->
     <div id="women" class="tab-content main-card">
         <h1>Women's Match Schedule</h1>
         <div class="input-group">
@@ -361,16 +377,14 @@
                 <div class="logo-text">Crystal Martin Central (Private) Limited</div>
                 <h2>Factory Team -Women's Match Schedule</h2>
             </div>
-            <div class="bracket-wrapper" id="women-bracketTree"></div>
+            <div class="bracket-container" id="women-bracketTree"></div>
         </div>
     </div>
 
     <script>
-        // Separate factory lists for regular (7 teams) and women's (6 teams)
         const regularFactories = ['CMG', 'CME', 'CMK', 'CMD', 'CMW', 'CMM', 'CME - CENTRAL'];
         const womenFactories = ['CMG', 'CME', 'CMK', 'CMD', 'CMW', 'CMM'];
         
-        // Independent states for all 3 draws
         const state = {
             mgt: { results: [], available: [1, 2, 3, 4, 5, 6, 7], maxTeams: 7 },
             men: { results: [], available: [1, 2, 3, 4, 5, 6, 7], maxTeams: 7 },
@@ -389,7 +403,6 @@
             const select = document.getElementById(`${type}-factorySelect`);
             select.innerHTML = '<option value="" disabled selected>Select Factory</option>';
             
-            // Use the correct factory list based on the tab
             const factoryList = (type === 'women') ? womenFactories : regularFactories;
 
             factoryList.forEach(factory => {
@@ -453,64 +466,153 @@
             });
 
             if (type === 'mgt' || type === 'men') {
-                // 7 Teams Layout (1v2, 3v4, 5v6, 7 gets Bye)
                 bracketTree.innerHTML = `
                     <div class="bracket-column">
-                        <div class="bracket-box">TEAM 01 : ${teamMap[1]}</div>
-                        <div class="bracket-box">TEAM 02 : ${teamMap[2]}</div>
-                        <div class="bracket-box">TEAM 03 : ${teamMap[3]}</div>
-                        <div class="bracket-box">TEAM 04 : ${teamMap[4]}</div>
-                        <div class="bracket-box">TEAM 05 : ${teamMap[5]}</div>
-                        <div class="bracket-box">TEAM 06 : ${teamMap[6]}</div>
-                        <div class="bracket-box">TEAM 07 : ${teamMap[7]}</div>
+                        <div class="match-group"><div class="bracket-box">TEAM 01 : ${teamMap[1]}</div><div class="bracket-box">TEAM 02 : ${teamMap[2]}</div></div>
+                        <div class="match-group"><div class="bracket-box">TEAM 03 : ${teamMap[3]}</div><div class="bracket-box">TEAM 04 : ${teamMap[4]}</div></div>
+                        <div class="match-group"><div class="bracket-box">TEAM 05 : ${teamMap[5]}</div><div class="bracket-box">TEAM 06 : ${teamMap[6]}</div></div>
+                        <div class="match-group"><div class="bracket-box">TEAM 07 : ${teamMap[7]}</div><div class="bracket-box bye">By Team : ${teamMap[7]}</div></div>
                     </div>
                     <div class="bracket-column">
-                        <div class="bracket-box winner-box">Winner (1 vs 2)</div>
-                        <div class="bracket-box winner-box">Winner (3 vs 4)</div>
-                        <div class="bracket-box winner-box">Winner (5 vs 6)</div>
-                        <div class="bracket-box bye">(By Team: ${teamMap[7]})</div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (1 vs 2)</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (3 vs 4)</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (5 vs 6)</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (Team 07)</div></div>
                     </div>
                     <div class="bracket-column">
-                        <div class="bracket-box winner-box">Winner</div>
-                        <div class="bracket-box winner-box">Winner</div>
+                        <div class="match-group"><div class="bracket-box winner-box">Semi-Final Winner</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Semi-Final Winner</div></div>
                     </div>
                     <div class="bracket-column">
-                        <div class="bracket-box champion">Champions</div>
+                        <div class="match-group"><div class="bracket-box champion">Champions</div></div>
                     </div>
                 `;
             } else if (type === 'women') {
-                // 6 Teams Layout (1 gets Bye, 2v3, 4v5, 6 gets Bye)
                 bracketTree.innerHTML = `
                     <div class="bracket-column">
-                        <div class="bracket-box">TEAM 01 : ${teamMap[1]}</div>
-                        <div class="bracket-box">TEAM 02 : ${teamMap[2]}</div>
-                        <div class="bracket-box">TEAM 03 : ${teamMap[3]}</div>
-                        <div class="bracket-box">TEAM 04 : ${teamMap[4]}</div>
-                        <div class="bracket-box">TEAM 05 : ${teamMap[5]}</div>
-                        <div class="bracket-box">TEAM 06 : ${teamMap[6]}</div>
+                        <div class="match-group"><div class="bracket-box">TEAM 01 : ${teamMap[1]}</div><div class="bracket-box bye">By Team : ${teamMap[1]}</div></div>
+                        <div class="match-group"><div class="bracket-box">TEAM 02 : ${teamMap[2]}</div><div class="bracket-box">TEAM 03 : ${teamMap[3]}</div></div>
+                        <div class="match-group"><div class="bracket-box">TEAM 04 : ${teamMap[4]}</div><div class="bracket-box">TEAM 05 : ${teamMap[5]}</div></div>
+                        <div class="match-group"><div class="bracket-box">TEAM 06 : ${teamMap[6]}</div><div class="bracket-box bye">By Team : ${teamMap[6]}</div></div>
                     </div>
                     <div class="bracket-column">
-                        <div class="bracket-box bye">(By Team: ${teamMap[1]})</div>
-                        <div class="bracket-box winner-box">Winner (2 vs 3)</div>
-                        <div class="bracket-box winner-box">Winner (4 vs 5)</div>
-                        <div class="bracket-box bye">(By Team: ${teamMap[6]})</div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (Team 01)</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (2 vs 3)</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (4 vs 5)</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Winner (Team 06)</div></div>
                     </div>
                     <div class="bracket-column">
-                        <div class="bracket-box winner-box">Winner</div>
-                        <div class="bracket-box winner-box">Winner</div>
+                        <div class="match-group"><div class="bracket-box winner-box">Semi-Final Winner</div></div>
+                        <div class="match-group"><div class="bracket-box winner-box">Semi-Final Winner</div></div>
                     </div>
                     <div class="bracket-column">
-                        <div class="bracket-box champion">Champions</div>
+                        <div class="match-group"><div class="bracket-box champion">Champions</div></div>
                     </div>
                 `;
             }
 
             finalDrawSection.style.display = 'block';
+            requestAnimationFrame(() => drawBracketLines(type));
             window.scrollTo({
                 top: document.body.scrollHeight,
                 behavior: 'smooth'
             });
         }
+
+        function drawBracketLines(type) {
+            const container = document.getElementById(`${type}-bracketTree`);
+            if (!container) return;
+
+            const existingSvg = document.getElementById(`${type}-connector-svg`);
+            if (existingSvg) existingSvg.remove();
+
+            const svgNS = 'http://www.w3.org/2000/svg';
+            const svg = document.createElementNS(svgNS, 'svg');
+            svg.setAttribute('id', `${type}-connector-svg`);
+            svg.classList.add('connector-svg');
+            container.insertBefore(svg, container.firstChild);
+
+            const containerRect = container.getBoundingClientRect();
+            svg.setAttribute('width', containerRect.width);
+            svg.setAttribute('height', containerRect.height);
+
+            const arrowId = `${type}-arrowhead`;
+            const defs = document.createElementNS(svgNS, 'defs');
+            defs.innerHTML = `
+                <marker id="${arrowId}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="#1e3a8a"></path>
+                </marker>
+            `;
+            svg.appendChild(defs);
+
+            const columns = container.querySelectorAll(':scope > .bracket-column');
+            if (columns.length < 4) return;
+
+            const col1Groups = columns[0].querySelectorAll(':scope > .match-group');
+            const col2Groups = columns[1].querySelectorAll(':scope > .match-group');
+            const col3Groups = columns[2].querySelectorAll(':scope > .match-group');
+            const col4Groups = columns[3].querySelectorAll(':scope > .match-group');
+
+            const drawConnector = (elA, elB, elTarget, withArrow) => {
+                const a = elA.getBoundingClientRect();
+                const b = elB.getBoundingClientRect();
+                const t = elTarget.getBoundingClientRect();
+
+                const x1 = a.right - containerRect.left;
+                const y1 = a.top + a.height / 2 - containerRect.top;
+                const y2 = b.top + b.height / 2 - containerRect.top;
+                const xTarget = t.left - containerRect.left;
+                const yMid = (y1 + y2) / 2;
+                const xMid = x1 + (xTarget - x1) / 2;
+
+                const makeLine = (px1, py1, px2, py2, arrow) => {
+                    const line = document.createElementNS(svgNS, 'line');
+                    line.setAttribute('x1', px1);
+                    line.setAttribute('y1', py1);
+                    line.setAttribute('x2', px2);
+                    line.setAttribute('y2', py2);
+                    line.setAttribute('class', 'connector-line');
+                    if (arrow) line.setAttribute('marker-end', `url(#${arrowId})`);
+                    svg.appendChild(line);
+                };
+
+                makeLine(x1, y1, xMid, y1, false);
+                makeLine(x1, y2, xMid, y2, false);
+                makeLine(xMid, y1, xMid, y2, false);
+                makeLine(xMid, yMid, xTarget, yMid, withArrow);
+            };
+
+            // Round 1 -> Round 2
+            col1Groups.forEach((group, i) => {
+                const boxes = group.querySelectorAll('.bracket-box');
+                const target = col2Groups[i] ? col2Groups[i].querySelector('.bracket-box') : null;
+                if (boxes.length === 2 && target) drawConnector(boxes[0], boxes[1], target, true);
+            });
+
+            // Round 2 -> Round 3
+            col3Groups.forEach((group, i) => {
+                const boxA = col2Groups[i * 2] ? col2Groups[i * 2].querySelector('.bracket-box') : null;
+                const boxB = col2Groups[i * 2 + 1] ? col2Groups[i * 2 + 1].querySelector('.bracket-box') : null;
+                const target = group.querySelector('.bracket-box');
+                if (boxA && boxB && target) drawConnector(boxA, boxB, target, true);
+            });
+
+            // Round 3 -> Champion
+            if (col3Groups.length === 2 && col4Groups.length === 1) {
+                const semiA = col3Groups[0].querySelector('.bracket-box');
+                const semiB = col3Groups[1].querySelector('.bracket-box');
+                const champTarget = col4Groups[0].querySelector('.bracket-box');
+                if (semiA && semiB && champTarget) drawConnector(semiA, semiB, champTarget, true);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            ['mgt', 'men', 'women'].forEach(type => {
+                if (state[type].results.length === state[type].maxTeams) {
+                    drawBracketLines(type);
+                }
+            });
+        });
 
         window.onload = () => {
             updateDropdown('mgt');
