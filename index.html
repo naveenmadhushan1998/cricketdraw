@@ -9,8 +9,12 @@
         :root {
             --primary-blue: #1e3a8a;
             --light-blue: #3b82f6;
-            --box-border: #60a5fa;
-            --bg-overlay: rgba(255, 255, 255, 0.85);
+            --box-border: #93c5fd;
+            --bg-overlay: rgba(255, 255, 255, 0.92);
+            
+            /* Team Badge Color matching uploaded photo */
+            --team-red-top: #8b0000;
+            --team-red-bottom: #5a0000;
         }
 
         * {
@@ -21,8 +25,7 @@
         }
 
         body {
-            /* Background image similar to an apparel store */
-          //  background-image: url('https://images.unsplash.com/photo-1581338834647-b0fb40704e21?q=80&w=2070&auto=format&fit=crop');
+            background-color: #f1f5f9;
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -30,19 +33,19 @@
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 40px 20px;
+            padding: 30px 15px;
         }
 
-        /* Glassmorphism Card Effect */
+        /* Card Container */
         .main-card {
             background: var(--bg-overlay);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 20px;
-            padding: 40px;
+            padding: 35px 25px;
             width: 100%;
-            max-width: 550px;
+            max-width: 900px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
@@ -51,12 +54,14 @@
             color: var(--primary-blue);
             font-size: 28px;
             font-weight: 700;
-            margin-bottom: 30px;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            margin-bottom: 25px;
         }
 
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         label {
@@ -77,7 +82,7 @@
             padding: 12px 15px;
             border: 2px solid var(--box-border);
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
             background-color: white;
             color: #374151;
             outline: none;
@@ -118,64 +123,66 @@
             text-align: center;
             color: var(--light-blue);
             font-weight: 600;
-            margin: 20px 0;
+            margin: 15px 0 20px 0;
             font-size: 15px;
         }
 
         .results-container {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 12px;
+            margin-bottom: 20px;
         }
 
         .result-box {
             background: white;
-            border: 2px solid var(--light-blue);
+            border: 2px solid var(--box-border);
             border-radius: 8px;
-            padding: 12px 20px;
-            font-size: 18px;
+            padding: 10px 15px;
+            font-size: 16px;
             color: #1f2937;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             animation: slideIn 0.4s ease-out forwards;
-            opacity: 0;
-            transform: translateY(10px);
         }
 
         .result-box strong {
-            font-size: 20px;
+            font-size: 16px;
             color: var(--primary-blue);
         }
 
-        .result-box .number-badge {
-            background: var(--light-blue);
-            color: white;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 18px;
+        /* Red Team Badge Style matching the image */
+        .team-badge {
+            background: linear-gradient(180deg, var(--team-red-top) 0%, var(--team-red-bottom) 100%);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+            border: 1px solid #4a0000;
         }
 
         @keyframes slideIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Final Draw Section */
+        /* Final Bracket Section */
         .final-draw-section {
             margin-top: 35px;
-            padding-top: 25px;
-            border-top: 2px dashed #94a3b8;
+            padding: 25px 15px;
+            background: #ffffff;
+            border: 3px solid #dc2626; /* Red outer border */
+            border-radius: 12px;
             display: none;
             animation: fadeIn 0.8s ease-in forwards;
+            overflow-x: auto;
         }
 
         @keyframes fadeIn {
@@ -183,34 +190,74 @@
             to { opacity: 1; }
         }
 
-        .final-draw-section h2 {
-            text-align: center;
-            color: #166534;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .match-card {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 12px;
+        .bracket-header {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            font-size: 18px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
         }
 
-        .vs {
-            background: #f59e0b;
-            color: white;
+        .bracket-header .logo-text {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e3a8a;
+            text-transform: uppercase;
+        }
+
+        .bracket-header h2 {
+            color: #581c87;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        /* Bracket Layout */
+        .bracket-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-width: 750px;
+            padding: 10px 0;
+        }
+
+        .bracket-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 520px;
+            width: 180px;
+        }
+
+        .bracket-box {
+            background: linear-gradient(180deg, var(--team-red-top) 0%, var(--team-red-bottom) 100%);
+            color: #ffffff;
+            border: 1px solid #4a0000;
+            border-radius: 4px;
+            padding: 8px 10px;
+            text-align: center;
+            font-weight: 700;
             font-size: 14px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-weight: bold;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+        }
+
+        .bracket-box.bye {
+            background: #1e3a8a;
+            border-color: #0f172a;
+        }
+
+        .bracket-box.winner-box {
+            background: #ffffff;
+            color: #000000;
+            border: 2.5px solid #000000;
+            text-shadow: none;
+        }
+
+        .bracket-box.champion {
+            background: #166534;
+            border-color: #14532d;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -224,7 +271,6 @@
             <div class="controls">
                 <select id="factorySelect">
                     <option value="" disabled selected>Select Factory</option>
-                    <!-- Options will be populated by JS -->
                 </select>
                 <button id="drawBtn" class="draw-btn" onclick="drawNumber()">Draw</button>
             </div>
@@ -233,30 +279,31 @@
         <p class="subtitle">selected factory name and the number you got!</p>
 
         <div class="results-container" id="resultsList">
-            <!-- Results will appear here -->
+            <!-- Drawn results will appear here -->
         </div>
 
         <div class="final-draw-section" id="finalDraw">
-            <h2>🏆 Final Match Draw</h2>
-            <div id="matchesList">
-                <!-- Matches will appear here -->
+            <div class="bracket-header">
+                <div class="logo-text">Crystal Martin Ceylon (Private) Limited<br><span style="font-size:10px; font-weight:normal; color:#666;">A Subsidiary of Crystal International Group Limited</span></div>
+                <h2>Mgt. Match Schedule</h2>
+            </div>
+
+            <div class="bracket-wrapper" id="bracketTree">
+                <!-- Dynamically generated tournament schedule tree -->
             </div>
         </div>
     </div>
 
     <script>
-        // Initial Data
-        const initialFactories = ['CMG', 'CME', 'CMK', 'CMD', 'CMW', 'CMM'];
-        let availableNumbers = [1, 2, 3, 4, 5, 6];
+        const initialFactories = ['CMG', 'CME', 'CMK', 'CMD', 'CMW', 'CMM', 'CME - CENTRAL'];
+        let availableNumbers = [1, 2, 3, 4, 5, 6, 7];
         let drawnResults = [];
 
-        // Initialize Dropdown
         function updateDropdown() {
             const select = document.getElementById('factorySelect');
             select.innerHTML = '<option value="" disabled selected>Select Factory</option>';
             
             initialFactories.forEach(factory => {
-                // If factory is not yet drawn, add it to options
                 if (!drawnResults.some(result => result.name === factory)) {
                     const option = document.createElement('option');
                     option.value = factory;
@@ -265,14 +312,12 @@
                 }
             });
 
-            // If all drawn, disable controls
             if (drawnResults.length === initialFactories.length) {
                 select.disabled = true;
                 document.getElementById('drawBtn').disabled = true;
             }
         }
 
-        // Action when "Draw" is clicked
         function drawNumber() {
             const select = document.getElementById('factorySelect');
             const selectedFactory = select.value;
@@ -282,78 +327,86 @@
                 return;
             }
 
-            // Pick a random number from available numbers
             const randomIndex = Math.floor(Math.random() * availableNumbers.length);
             const drawnNum = availableNumbers[randomIndex];
             
-            // Remove the picked number from available list
             availableNumbers.splice(randomIndex, 1);
 
-            // Save result
             drawnResults.push({ name: selectedFactory, number: drawnNum });
 
-            // Display in UI
             displayResult(selectedFactory, drawnNum);
-
-            // Update dropdown to remove selected factory
             updateDropdown();
 
-            // Check if all are drawn
             if (drawnResults.length === initialFactories.length) {
-                setTimeout(generateFinalDraw, 800); // slight delay for effect
+                setTimeout(generateFinalDraw, 600);
             }
         }
 
-        // Display individual result box
         function displayResult(factory, number) {
             const resultsList = document.getElementById('resultsList');
             
+            // Format number as 2 digits (e.g. TEAM 01, TEAM 02)
+            const formattedNum = String(number).padStart(2, '0');
+
             const box = document.createElement('div');
             box.className = 'result-box';
             box.innerHTML = `
                 <span><strong>${factory}</strong></span>
-                <div class="number-badge">${number}</div>
+                <div class="team-badge">TEAM ${formattedNum}</div>
             `;
             
             resultsList.appendChild(box);
         }
 
-        // Generate and display final match fixtures
         function generateFinalDraw() {
             const finalDrawSection = document.getElementById('finalDraw');
-            const matchesList = document.getElementById('matchesList');
+            const bracketTree = document.getElementById('bracketTree');
             
-            // Sort results based on the drawn number (1 to 6)
-            drawnResults.sort((a, b) => a.number - b.number);
+            let teamMap = {};
+            drawnResults.forEach(item => {
+                teamMap[item.number] = item.name;
+            });
 
-            matchesList.innerHTML = '';
+            bracketTree.innerHTML = `
+                <!-- Column 1: Initial Teams (1-7) -->
+                <div class="bracket-column">
+                    <div class="bracket-box">TEAM 01 : ${teamMap[1]}</div>
+                    <div class="bracket-box">TEAM 02 : ${teamMap[2]}</div>
+                    <div class="bracket-box">TEAM 03 : ${teamMap[3]}</div>
+                    <div class="bracket-box">TEAM 04 : ${teamMap[4]}</div>
+                    <div class="bracket-box">TEAM 05 : ${teamMap[5]}</div>
+                    <div class="bracket-box">TEAM 06 : ${teamMap[6]}</div>
+                    <div class="bracket-box">TEAM 07 : ${teamMap[7]}</div>
+                </div>
 
-            // Pair them up: 1 vs 2, 3 vs 4, 5 vs 6
-            for (let i = 0; i < drawnResults.length; i += 2) {
-                const team1 = drawnResults[i];
-                const team2 = drawnResults[i+1];
+                <!-- Column 2: Round 1 Winners & Bye -->
+                <div class="bracket-column">
+                    <div class="bracket-box winner-box">Winner (1 vs 2)</div>
+                    <div class="bracket-box winner-box">Winner (3 vs 4)</div>
+                    <div class="bracket-box winner-box">Winner (5 vs 6)</div>
+                    <div class="bracket-box bye">(By Team: ${teamMap[7]})</div>
+                </div>
 
-                const matchCard = document.createElement('div');
-                matchCard.className = 'match-card';
-                matchCard.innerHTML = `
-                    <span>${team1.name} (P${team1.number})</span>
-                    <span class="vs">VS</span>
-                    <span>${team2.name} (P${team2.number})</span>
-                `;
-                matchesList.appendChild(matchCard);
-            }
+                <!-- Column 3: Semi Final Winners -->
+                <div class="bracket-column">
+                    <div class="bracket-box winner-box">Winner</div>
+                    <div class="bracket-box winner-box">Winner</div>
+                </div>
 
-            // Show the section
+                <!-- Column 4: Champions -->
+                <div class="bracket-column">
+                    <div class="bracket-box champion">Champions</div>
+                </div>
+            `;
+
             finalDrawSection.style.display = 'block';
             
-            // Scroll down smoothly
             window.scrollTo({
                 top: document.body.scrollHeight,
                 behavior: 'smooth'
             });
         }
 
-        // Run on load
         window.onload = updateDropdown;
     </script>
 
