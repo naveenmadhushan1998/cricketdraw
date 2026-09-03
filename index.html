@@ -305,6 +305,36 @@
             font-size: 15px;
             height: 50px;
         }
+
+        /* --- Team-wise colors (badges + bracket boxes) --- */
+        .team-badge.team-color-1, .bracket-box.team-color-1 {
+            background: linear-gradient(180deg, #1b2f57 0%, #0a1730 100%);
+            border-color: #060f20;
+        }
+        .team-badge.team-color-2, .bracket-box.team-color-2 {
+            background: linear-gradient(180deg, #a10a0c 0%, #6b0507 100%);
+            border-color: #430304;
+        }
+        .team-badge.team-color-3, .bracket-box.team-color-3 {
+            background: linear-gradient(180deg, #0f7a34 0%, #024a1e 100%);
+            border-color: #013014;
+        }
+        .team-badge.team-color-4, .bracket-box.team-color-4 {
+            background: linear-gradient(180deg, #5a1f86 0%, #34104f 100%);
+            border-color: #220a33;
+        }
+        .team-badge.team-color-5, .bracket-box.team-color-5 {
+            background: linear-gradient(180deg, #f26a10 0%, #c44700 100%);
+            border-color: #8a3200;
+        }
+        .team-badge.team-color-6, .bracket-box.team-color-6 {
+            background: linear-gradient(180deg, #1c6fe0 0%, #0046ad 100%);
+            border-color: #002d70;
+        }
+        .team-badge.team-color-7, .bracket-box.team-color-7 {
+            background: linear-gradient(180deg, #e0ac0d 0%, #a67900 100%);
+            border-color: #6b4d00;
+        }
     </style>
 </head>
 <body>
@@ -451,7 +481,7 @@
             box.className = 'result-box';
             box.innerHTML = `
                 <span><strong>${factory}</strong></span>
-                <div class="team-badge">TEAM ${formattedNum}</div>
+                <div class="team-badge team-color-${number}">TEAM ${formattedNum}</div>
             `;
             resultsList.appendChild(box);
         }
@@ -465,13 +495,21 @@
                 teamMap[item.number] = item.name;
             });
 
+            const teamBox = (num) => {
+                const formatted = String(num).padStart(2, '0');
+                return `<div class="bracket-box team-color-${num}">TEAM ${formatted} : ${teamMap[num]}</div>`;
+            };
+            const byeBox = (num) => {
+                return `<div class="bracket-box bye team-color-${num}">By Team : ${teamMap[num]}</div>`;
+            };
+
             if (type === 'mgt' || type === 'men') {
                 bracketTree.innerHTML = `
                     <div class="bracket-column">
-                        <div class="match-group"><div class="bracket-box">TEAM 01 : ${teamMap[1]}</div><div class="bracket-box">TEAM 02 : ${teamMap[2]}</div></div>
-                        <div class="match-group"><div class="bracket-box">TEAM 03 : ${teamMap[3]}</div><div class="bracket-box">TEAM 04 : ${teamMap[4]}</div></div>
-                        <div class="match-group"><div class="bracket-box">TEAM 05 : ${teamMap[5]}</div><div class="bracket-box">TEAM 06 : ${teamMap[6]}</div></div>
-                        <div class="match-group"><div class="bracket-box">TEAM 07 : ${teamMap[7]}</div><div class="bracket-box bye">By Team : ${teamMap[7]}</div></div>
+                        <div class="match-group">${teamBox(1)}${teamBox(2)}</div>
+                        <div class="match-group">${teamBox(3)}${teamBox(4)}</div>
+                        <div class="match-group">${teamBox(5)}${teamBox(6)}</div>
+                        <div class="match-group">${teamBox(7)}${byeBox(7)}</div>
                     </div>
                     <div class="bracket-column">
                         <div class="match-group"><div class="bracket-box winner-box">Winner (1 vs 2)</div></div>
@@ -490,10 +528,10 @@
             } else if (type === 'women') {
                 bracketTree.innerHTML = `
                     <div class="bracket-column">
-                        <div class="match-group"><div class="bracket-box">TEAM 01 : ${teamMap[1]}</div><div class="bracket-box bye">By Team : ${teamMap[1]}</div></div>
-                        <div class="match-group"><div class="bracket-box">TEAM 02 : ${teamMap[2]}</div><div class="bracket-box">TEAM 03 : ${teamMap[3]}</div></div>
-                        <div class="match-group"><div class="bracket-box">TEAM 04 : ${teamMap[4]}</div><div class="bracket-box">TEAM 05 : ${teamMap[5]}</div></div>
-                        <div class="match-group"><div class="bracket-box">TEAM 06 : ${teamMap[6]}</div><div class="bracket-box bye">By Team : ${teamMap[6]}</div></div>
+                        <div class="match-group">${teamBox(1)}${byeBox(1)}</div>
+                        <div class="match-group">${teamBox(2)}${teamBox(3)}</div>
+                        <div class="match-group">${teamBox(4)}${teamBox(5)}</div>
+                        <div class="match-group">${teamBox(6)}${byeBox(6)}</div>
                     </div>
                     <div class="bracket-column">
                         <div class="match-group"><div class="bracket-box winner-box">Winner (Team 01)</div></div>
