@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Martin Cricket Draw</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --light-blue: #3b82f6;
+            --box-border: #60a5fa;
+            --bg-overlay: rgba(255, 255, 255, 0.85);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Background image similar to an apparel store */
+          //  background-image: url('https://images.unsplash.com/photo-1581338834647-b0fb40704e21?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        /* Glassmorphism Card Effect */
+        .main-card {
+            background: var(--bg-overlay);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 550px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-blue);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        select {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid var(--box-border);
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: white;
+            color: #374151;
+            outline: none;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        select:focus {
+            border-color: var(--primary-blue);
+        }
+
+        button.draw-btn {
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2);
+        }
+
+        button.draw-btn:hover:not(:disabled) {
+            background-color: var(--light-blue);
+            transform: translateY(-2px);
+        }
+
+        button.draw-btn:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--light-blue);
+            font-weight: 600;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .result-box {
+            background: white;
+            border: 2px solid var(--light-blue);
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 18px;
+            color: #1f2937;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            animation: slideIn 0.4s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .result-box strong {
+            font-size: 20px;
+            color: var(--primary-blue);
+        }
+
+        .result-box .number-badge {
+            background: var(--light-blue);
+            color: white;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Final Draw Section */
+        .final-draw-section {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 2px dashed #94a3b8;
+            display: none;
+            animation: fadeIn 0.8s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .final-draw-section h2 {
+            text-align: center;
+            color: #166534;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .match-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .vs {
+            background: #f59e0b;
+            color: white;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        <h1>Crystal Martin Cricket draw.</h1>
+
+        <div class="input-group">
+            <label>Please Select Your Factory</label>
+            <div class="controls">
+                <select id="factorySelect">
+                    <option value="" disabled selected>Select Factory</option>
+                    <!-- Options will be populated by JS -->
+                </select>
+                <button id="drawBtn" class="draw-btn" onclick="drawNumber()">Draw</button>
+            </div>
+        </div>
+
+        <p class="subtitle">selected factory name and the number you got!</p>
+
+        <div class="results-container" id="resultsList">
+            <!-- Results will appear here -->
+        </div>
+
+        <div class="final-draw-section" id="finalDraw">
+            <h2>🏆 Final Match Draw</h2>
+            <div id="matchesList">
+                <!-- Matches will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initial Data
+        const initialFactories = ['CMG', 'CME', 'CMK', 'CMD', 'CMW', 'CMM'];
+        let availableNumbers = [1, 2, 3, 4, 5, 6];
+        let drawnResults = [];
+
+        // Initialize Dropdown
+        function updateDropdown() {
+            const select = document.getElementById('factorySelect');
+            select.innerHTML = '<option value="" disabled selected>Select Factory</option>';
+            
+            initialFactories.forEach(factory => {
+                // If factory is not yet drawn, add it to options
+                if (!drawnResults.some(result => result.name === factory)) {
+                    const option = document.createElement('option');
+                    option.value = factory;
+                    option.textContent = factory;
+                    select.appendChild(option);
+                }
+            });
+
+            // If all drawn, disable controls
+            if (drawnResults.length === initialFactories.length) {
+                select.disabled = true;
+                document.getElementById('drawBtn').disabled = true;
+            }
+        }
+
+        // Action when "Draw" is clicked
+        function drawNumber() {
+            const select = document.getElementById('factorySelect');
+            const selectedFactory = select.value;
+
+            if (!selectedFactory) {
+                alert('Please select a factory first!');
+                return;
+            }
+
+            // Pick a random number from available numbers
+            const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+            const drawnNum = availableNumbers[randomIndex];
+            
+            // Remove the picked number from available list
+            availableNumbers.splice(randomIndex, 1);
+
+            // Save result
+            drawnResults.push({ name: selectedFactory, number: drawnNum });
+
+            // Display in UI
+            displayResult(selectedFactory, drawnNum);
+
+            // Update dropdown to remove selected factory
+            updateDropdown();
+
+            // Check if all are drawn
+            if (drawnResults.length === initialFactories.length) {
+                setTimeout(generateFinalDraw, 800); // slight delay for effect
+            }
+        }
+
+        // Display individual result box
+        function displayResult(factory, number) {
+            const resultsList = document.getElementById('resultsList');
+            
+            const box = document.createElement('div');
+            box.className = 'result-box';
+            box.innerHTML = `
+                <span><strong>${factory}</strong></span>
+                <div class="number-badge">${number}</div>
+            `;
+            
+            resultsList.appendChild(box);
+        }
+
+        // Generate and display final match fixtures
+        function generateFinalDraw() {
+            const finalDrawSection = document.getElementById('finalDraw');
+            const matchesList = document.getElementById('matchesList');
+            
+            // Sort results based on the drawn number (1 to 6)
+            drawnResults.sort((a, b) => a.number - b.number);
+
+            matchesList.innerHTML = '';
+
+            // Pair them up: 1 vs 2, 3 vs 4, 5 vs 6
+            for (let i = 0; i < drawnResults.length; i += 2) {
+                const team1 = drawnResults[i];
+                const team2 = drawnResults[i+1];
+
+                const matchCard = document.createElement('div');
+                matchCard.className = 'match-card';
+                matchCard.innerHTML = `
+                    <span>${team1.name} (P${team1.number})</span>
+                    <span class="vs">VS</span>
+                    <span>${team2.name} (P${team2.number})</span>
+                `;
+                matchesList.appendChild(matchCard);
+            }
+
+            // Show the section
+            finalDrawSection.style.display = 'block';
+            
+            // Scroll down smoothly
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // Run on load
+        window.onload = updateDropdown;
+    </script>
+
+</body>
+</html>
