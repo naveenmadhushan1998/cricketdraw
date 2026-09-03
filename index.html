@@ -285,9 +285,11 @@
         }
 
         .bracket-box.bye {
-            background: #1e3a8a;
-            border-color: #0f172a;
-            font-size: 12px;
+            background: linear-gradient(180deg, #e0ac0d 0%, #a67900 100%);
+            border-color: #6b4d00;
+            color: #1f2937;
+            text-shadow: none;
+            font-size: 13px;
         }
 
         .bracket-box.winner-box {
@@ -500,7 +502,7 @@
                 return `<div class="bracket-box team-color-${num}">TEAM ${formatted} : ${teamMap[num]}</div>`;
             };
             const byeBox = (num) => {
-                return `<div class="bracket-box bye team-color-${num}">By Team : ${teamMap[num]}</div>`;
+                return `<div class="bracket-box bye">Bye</div>`;
             };
 
             if (type === 'mgt' || type === 'men') {
